@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_script import Manager, Shell
 from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 
@@ -9,6 +10,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
 
 manager = Manager(app)
 db = SQLAlchemy(app)
+bootstrap = Bootstrap(app)
 
 from .model import Cliente
 
