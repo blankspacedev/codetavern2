@@ -1,0 +1,12 @@
+{% extends "plantilla.html" %}
+
+{% block page_content %}
+
+{% for c in clientes %}
+<form method='POST'>
+<input type='submit' name='{{c.nombre}}' value='+'></input>
+{{c.nombre}} se ha pedido {{c.pedidos}} cervezas.
+</form>
+{% endfor %}
+
+{% endblock %}
