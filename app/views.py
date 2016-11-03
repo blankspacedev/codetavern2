@@ -1,17 +1,14 @@
-from . import app
+from . import app, db
 from .model import Cliente
-from flask import render_template
+from flask import render_template, request
 
-@app.route('/')
+
+@app.route('/',  methods = ['GET', 'POST'])
 def index():
-    javi = Cliente.query.filter_by(nombre='Javi').first()
-    return "<strong>Hello Tommy!</strong>"+\
-    "<br>"+\
-    "%s se ha pedido %d cervezas." % (javi.nombre, javi.pedidos)
-
-
-@app.route('/other')
-def index2():
-    javi = Cliente.query.filter_by(nombre='Javi').first()
-    return render_template('index.html', nombre=javi.nombre, \
-    numCervezas = javi.pedidos)
+    if request.method == 'POST':
+        nombre = list(request.form.keys())[0]
+        cliente = Cliente.query.filter_by(nombre=nombre).first()
+        cliente.pedidos+=1
+        db.session.add(cliente)
+        db.session.commit()
+    return render_template('index.html', clientes=Cliente.query.all())

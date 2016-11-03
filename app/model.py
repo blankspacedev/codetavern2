@@ -16,5 +16,6 @@ def populate():
 
     if Cliente.query.filter_by(nombre='Javi').first() is None:
         javi = Cliente(nombre="Javi", pedidos = 3)
-        db.session.add(javi)
+        jacinto = Cliente(nombre="Jacinto", pedidos = 5)
+        db.session.add_all([javi, jacinto])
         db.session.commit()
